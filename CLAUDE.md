@@ -11,7 +11,7 @@
     tells the content script when a tab gets activated
   - `content.js`: runs at `document_start` in the top frame of every page,
     asks the background whether its tab is unseen, and prefixes
-    `document.title` with `⬤ ` (a `MutationObserver` keeps the prefix when the
+    `document.title` with `● ` (a `MutationObserver` keeps the prefix when the
     page changes its title)
   - `icon.svg`: source of the extension icon; `icons/*.png` are rendered from
     it at 16/32/48/128 px (Playwright screenshot with a transparent

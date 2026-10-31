@@ -1,9 +1,9 @@
-// Adds "⬤ " in front of the page title while the background script says this
+// Adds "● " in front of the page title while the background script says this
 // tab hasn't been looked at yet, and keeps it there if the page changes its
 // title. Removes it as soon as the tab gets activated.
 
 (() => {
-  const PREFIX = '⬤ ';
+  const PREFIX = '● ';
   let unseen = false;
   let synthesized = null; // title we made up for a page that had none
   let observer = null;
