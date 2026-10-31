@@ -13,6 +13,9 @@
     asks the background whether its tab is unseen, and prefixes
     `document.title` with `⬤ ` (a `MutationObserver` keeps the prefix when the
     page changes its title)
+  - `icon.svg`: source of the extension icon; `icons/*.png` are rendered from
+    it at 16/32/48/128 px (Playwright screenshot with a transparent
+    background); re-render them whenever the SVG changes
 - Test with the pre-installed Playwright Chromium by loading the extension with
   `--disable-extensions-except` / `--load-extension` in a persistent context
   (`headless: false` plus `--headless=new`, or the service worker never

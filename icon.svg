@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="tab" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <!-- browser tab: rounded top, flared bottom corners -->
+  <path d="M0 116 Q10 116 10 104 V36 Q10 20 26 20 H102 Q118 20 118 36 V104 Q118 116 128 116 Z"
+        fill="url(#tab)"/>
+  <!-- the unseen bullet -->
+  <circle cx="46" cy="66" r="24" fill="#fff"/>
+  <!-- title text -->
+  <rect x="78" y="58" width="28" height="16" rx="8" fill="#fff" opacity=".6"/>
+</svg>
