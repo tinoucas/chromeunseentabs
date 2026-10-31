@@ -1,7 +1,7 @@
 # Unseen Tabs
 
 A tiny Chromium (Manifest V3) extension: tabs opened in the background (e.g.
-middle-click / Ctrl+click on a link) get a `• ` in front of their title. The
+middle-click / Ctrl+click on a link) get a `⬤ ` in front of their title. The
 first time you switch to the tab, the bullet goes away for good.
 
 ## Install
