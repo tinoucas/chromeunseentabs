@@ -1,18 +1,23 @@
 # Unseen Tabs
 
 A tiny Chromium (Manifest V3) extension: tabs opened in the background (e.g.
-middle-click / Ctrl+click on a link) get a `● ` in front of their title. The
+middle-click / Ctrl+click on a link, or all but the first tab of a window
+opened with several pages at once) get a `● ` in front of their title. The
 first time you switch to the tab, the bullet goes away for good.
 
 ## Install
 
 1. Open `chrome://extensions` and turn on **Developer mode**.
 2. Click **Load unpacked** and pick this folder.
+3. For incognito windows too: click **Details** on the extension and turn on
+   **Allow in Incognito**.
 
 ## How it works
 
-- `background.js` records the id of every tab created without being active,
-  and forgets it when the tab is activated, closed or replaced.
+- `background.js` records the id of every new tab, and forgets it once the
+  tab has stayed the active tab of its window for 300 ms, or is closed. The
+  delay is there because Chrome briefly activates every tab of a window opened
+  with several URLs before settling on the first one.
 - `content.js` runs at the start of every page load, asks the background
   whether its tab is still unseen, and if so prefixes `document.title`. A
   `MutationObserver` keeps the bullet when the page changes its own title.

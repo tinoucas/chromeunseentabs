@@ -6,9 +6,13 @@
   There is no build step; these files are loaded as-is:
   - `manifest.json`: only the `storage` permission; keep it that way (no
     `tabs` or host permissions) unless a feature really needs more
-  - `background.js`: service worker that tracks unseen tabs (created with
-    `active: false`, not activated since) in `chrome.storage.session`, and
-    tells the content script when a tab gets activated
+  - `background.js`: service worker that tracks unseen tabs in
+    `chrome.storage.session` and tells the content script when one gets
+    seen. Every new tab starts unseen (even if created active), and becomes
+    seen once it has stayed active in its window for `SEEN_DELAY_MS`:
+    `chrome.windows.create({ url: [...] })` creates all tabs active and
+    activates each in turn before going back to the first, so plain
+    `tabs.onActivated` / `tab.active` can't tell seen tabs apart
   - `content.js`: runs at `document_start` in the top frame of every page,
     asks the background whether its tab is unseen, and prefixes
     `document.title` with `● ` (a `MutationObserver` keeps the prefix when the

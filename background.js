@@ -27,15 +27,35 @@ function notify(tabId, isUnseen) {
   });
 }
 
+// A tab only counts as seen once it has stayed the active tab of its window
+// for a moment. When a window is opened with several URLs at once
+// (chrome.windows.create({ url: [...] })), Chrome creates every tab as active
+// and activates each in turn before settling on the first one: those
+// passing activations must not count.
+const SEEN_DELAY_MS = 300;
+const settling = new Map(); // windowId -> timer of the tab about to be seen
+
+function activated(tabId, windowId) {
+  clearTimeout(settling.get(windowId));
+  settling.set(windowId, setTimeout(async () => {
+    settling.delete(windowId);
+    const tab = await chrome.tabs.get(tabId).catch(() => null);
+    if (!tab || !tab.active) return;
+    const changed = await withState((s) => s.delete(tabId));
+    if (changed) notify(tabId, false);
+  }, SEEN_DELAY_MS));
+}
+
 chrome.tabs.onCreated.addListener((tab) => {
-  if (tab.active) return;
-  withState((s) => (s.add(tab.id), true)).then(() => notify(tab.id, true));
+  // Track every new tab, active or not: see above.
+  withState((s) => (s.add(tab.id), true)).then(() => {
+    if (!tab.active) notify(tab.id, true);
+  });
+  if (tab.active) activated(tab.id, tab.windowId);
 });
 
-chrome.tabs.onActivated.addListener(({ tabId }) => {
-  withState((s) => s.delete(tabId)).then((changed) => {
-    if (changed) notify(tabId, false);
-  });
+chrome.tabs.onActivated.addListener(({ tabId, windowId }) => {
+  activated(tabId, windowId);
 });
 
 chrome.tabs.onRemoved.addListener((tabId) => {
