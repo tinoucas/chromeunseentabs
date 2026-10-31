@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Unseen Tabs",
+  "version": "1.0.0",
+  "description": "Prefixes the title of tabs opened in the background with \"• \" until you look at them.",
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}
