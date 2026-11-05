@@ -3,8 +3,8 @@
 A tiny Chromium (Manifest V3) extension: tabs opened in the background (e.g.
 middle-click / Ctrl+click on a link, or all but the first tab of a window
 opened with several pages at once) get a `● ` (`⏺︎ ` on macOS) in front of
-their title. The
-first time you switch to the tab, the bullet goes away for good.
+their title. The first time you switch to the tab, the bullet goes away for
+good.
 
 ## Install
 
