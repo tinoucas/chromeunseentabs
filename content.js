@@ -3,7 +3,12 @@
 // title. Removes it as soon as the tab gets activated.
 
 (() => {
-  const PREFIX = '● ';
+  // The tab strip draws titles in the OS's UI font, which lacks these
+  // characters, so their size depends on the fallback font. ● looks right on
+  // Linux but much bigger on macOS, where ⏺ (forced to text, not emoji, by
+  // U+FE0E) comes out at about the same size.
+  const isMac = /^mac/i.test(navigator.userAgentData?.platform || navigator.platform || '');
+  const PREFIX = isMac ? '\u23FA\uFE0E ' : '\u25CF ';
   let unseen = false;
   let synthesized = null; // title we made up for a page that had none
   let observer = null;

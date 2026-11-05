@@ -2,7 +2,8 @@
 
 A tiny Chromium (Manifest V3) extension: tabs opened in the background (e.g.
 middle-click / Ctrl+click on a link, or all but the first tab of a window
-opened with several pages at once) get a `● ` in front of their title. The
+opened with several pages at once) get a `● ` (`⏺︎ ` on macOS) in front of
+their title. The
 first time you switch to the tab, the bullet goes away for good.
 
 ## Install
@@ -26,5 +27,9 @@ first time you switch to the tab, the bullet goes away for good.
 
 - It edits the page title, so it can't work where extensions can't inject
   scripts: `chrome://` pages, the Chrome Web Store, and some built-in viewers.
+- Tab titles are drawn in the OS's UI font, which lacks these characters, so
+  their size comes from whichever font the OS falls back to. That's why macOS
+  uses `⏺︎` (U+23FA + U+FE0E for text presentation): its `●` is much bigger
+  than Linux's.
 - The list of unseen tabs is kept for the browser session only; tabs restored
   after a restart start without a bullet.

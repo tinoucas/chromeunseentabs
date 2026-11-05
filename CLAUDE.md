@@ -15,8 +15,9 @@
     `tabs.onActivated` / `tab.active` can't tell seen tabs apart
   - `content.js`: runs at `document_start` in the top frame of every page,
     asks the background whether its tab is unseen, and prefixes
-    `document.title` with `● ` (a `MutationObserver` keeps the prefix when the
-    page changes its title)
+    `document.title` with `● ` (`⏺︎ ` on macOS, where the fallback font draws
+    `●` much bigger; U+FE0E keeps `⏺` from turning into an emoji). A
+    `MutationObserver` keeps the prefix when the page changes its title
   - `icon.svg`: source of the extension icon; `icons/*.png` are rendered from
     it at 16/32/48/128 px (Playwright screenshot with a transparent
     background); re-render them whenever the SVG changes
